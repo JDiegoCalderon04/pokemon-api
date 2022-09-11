@@ -1,20 +1,20 @@
 import { useEffect, useState } from 'react';
-import { getGifs } from '../helpers/getGifs';
+import { getPokemon } from '../helpers/getPokemon';
 
-export const useFetchGifs = ( category ) => {
+export const useFetchImage = ( category ) => {
 
     const [pokemon, setPokemon] = useState({});
     const [isLoading, setIsLoading] = useState( true );
 
 
-    const getImages = async() => {
-        const newPokemon = await getGifs( category );
+    const getImage = async() => {
+        const newPokemon = await getPokemon( category );
         setPokemon(newPokemon);
         setIsLoading(false);
     }
 
     useEffect( () => {
-       getImages();
+       getImage();
       }, [])
 
 

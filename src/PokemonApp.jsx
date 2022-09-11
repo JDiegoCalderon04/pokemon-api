@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { AddCategory } from './components/AddCategory';
-import { GifGrid } from './components/GifGrid';
+import { ShowPokemon } from './components/ShowPokemon';
+import image from "./assets/Title.png";
 
 export const PokemonApp = () => {
 
@@ -15,7 +16,11 @@ export const PokemonApp = () => {
 
     return (
         <>
-            <h1>PokemonApp</h1>
+            <div align="center">
+                <h1>PokemonApp</h1>
+                <img src={image} width="350" height="200"/>
+            </div>
+
 
             <AddCategory 
                onNewCategory = { value => onAddCategory(value) }
@@ -24,7 +29,7 @@ export const PokemonApp = () => {
 
             { 
                 categories.map( ( category ) => (
-                        <GifGrid 
+                        <ShowPokemon 
                             key={ category } 
                             category={ category } 
                         />

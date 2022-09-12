@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { AddCategory } from './components/AddCategory';
 import { ShowPokemon } from './components/ShowPokemon';
 import image from "./assets/Title.png";
@@ -10,8 +10,8 @@ export const PokemonApp = () => {
     const onAddCategory = ( newCategory ) => {
 
         if( categories.includes(newCategory)  ) return;
-
         setCategories( [ newCategory, ...categories ] );
+        
     }
 
     return (

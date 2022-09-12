@@ -1,12 +1,30 @@
 import { useFetchImage } from '../hooks/useFetchImage';
 import PropTypes from 'prop-types';
 import image from "../assets/NotFound.png";
+import { useState, useEffect } from 'react';
 
 export const ShowPokemon = ( { category } ) => {
     
-    const prueba = () => console.log("hola");
     const { pokemon, isLoading } = useFetchImage( category );
+
+    const [favorites, setFavorites] = useState([]);
+
+    const AddFavorite = ( newFavorite ) => {
+
+        console.log("entra" + newFavorite);
+        
+        if( favorites.includes(newFavorite) ) return;
+        setFavorites( [ newFavorite, ...favorites ] );
+
+        console.log("sale" + favorites);
+    }
+
+    useEffect( () => {
+        AddFavorite();
+       }, [])
+
     category = category.charAt(0).toUpperCase() + category.slice(1).toLowerCase();
+
     return (
         <>
             {
@@ -40,8 +58,12 @@ export const ShowPokemon = ( { category } ) => {
                                 <p>Peso: { pokemon.weight } </p>
                                 <p>Altura: { pokemon.height } </p>
                                 <p>Experiencia base: { pokemon.base_experience } </p>
-                                <button type="button" className="btn btn-warning" onClick={prueba}>Favorito</button>
+                                <button 
+                                    type="button" 
+                                    className="btn btn-warning" 
+                                    onClick={() => AddFavorite(pokemon.id)}>Favorito</button>                        
                             </div>
+                            
         
                         }
         

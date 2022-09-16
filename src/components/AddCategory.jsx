@@ -21,7 +21,7 @@ export const AddCategory = ({ onNewCategory }) => {
         <form onSubmit={ onSubmit } aria-label="form" >  
             <input 
                 type="text"
-                placeholder="Buscar Pokemon"
+                placeholder="Buscar Pokemon por nombre o ID"
                 value={ inputValue }
                 onChange={ onInputChange }
             />

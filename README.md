@@ -9,7 +9,7 @@ Este proyecto consiste en una aplicación que permite buscar cualquier Pokemon m
 - useEffect: El cual permite llevar a cabo efectos secundarios en un componente.
 - localStorage: El cual permite que los datos almacenados se guarden en las sesiones del navegador, por lo que persisten aunque actualicemos la página.
 1. Además, se hace uso de CSS para el diseño y presentación de las página.
-2. Igualmente, se hace uso de un plugin de jQuery para dar un mejor aspecto a los mensajes mostrados al hacer uso de ciertos botones.
+2. Igualmente, se hace uso de un plugin de jQuery de la libreria SweetAlert para mostrar mensajes emergentes al hacer uso de ciertos botones.
 
 ##### Entre sus principales funcionalidades se encuentran:  
 
@@ -22,5 +22,5 @@ Este proyecto consiste en una aplicación que permite buscar cualquier Pokemon m
 
 ### Para tener en cuenta:
 1. Al iniciar la aplicacion siempre se mostrara por defecto la carta del Pokemon #1, es decir "Bulbasaur", también aplica cuando se borra el historial.
-2. Al presionar el botón "Añadir Favorito" dentro de la carta de un Pokemon, se esconderá y en su defecto se mostrará el botón "Eliminar Favorito".
-3. Al presionar el botón "Ver Favoritos", se esconderá y en su defecto se mostrará el botón "Volver al historial".
+2. Al presionar el botón "Añadir Favorito" dentro de la carta de un Pokemon, se esconderá y en su defecto se mostrará el botón "Eliminar Favorito" y viceversa.
+3. Al presionar el botón "Ver Favoritos", se esconderá y en su defecto se mostrará el botón "Volver al historial" y viceversa.

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { AddCategory } from './components/AddCategory';
 import { ShowPokemon } from './components/ShowPokemon';
-import image from "./assets/Title.png"
+import image from "./assets/Title.png";
 import swal from 'sweetalert';
 
 export const PokemonApp = () => {

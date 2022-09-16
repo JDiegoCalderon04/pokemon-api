@@ -11,13 +11,13 @@ export const AddCategory = ({ onNewCategory }) => {
 
     const onSubmit = (event) => {
         event.preventDefault();
-        if (inputValue.trim().length <= 1 ) return;
-
+        if (isNaN(parseInt(inputValue.trim(), 10)) && inputValue.trim().length <= 1 ) return;
         setInputValue('');
         onNewCategory( inputValue.trim() );
     }
 
     return (
+        <div align="center">
         <form onSubmit={ onSubmit } aria-label="form" >  
             <input 
                 type="text"
@@ -26,6 +26,8 @@ export const AddCategory = ({ onNewCategory }) => {
                 onChange={ onInputChange }
             />
         </form>
+
+        </div>
     )
 }
 

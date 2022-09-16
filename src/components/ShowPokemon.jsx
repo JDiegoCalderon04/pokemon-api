@@ -1,51 +1,71 @@
 import { useFetchImage } from '../hooks/useFetchImage';
 import PropTypes from 'prop-types';
 import image from "../assets/NotFound.png";
-import { useState, useEffect } from 'react';
-//import { LocalStorage } from '../hooks/useLocalStorage';
+import image2 from "../assets/FavoriteNotFound.png";
+import { useState } from 'react';
 
-export const ShowPokemon = ({ category, isShowingFav }) => {
+export const ShowPokemon = ({ category, isShowingFav, noFavorites }) => {
 
-    console.log("FAV:" + isShowingFav);
-    console.log("CAT:" + category);
+    let list = JSON.parse(localStorage.getItem("Favorites"));
+    let listName = JSON.parse(localStorage.getItem("FavoritesName"));
+    if (list == null) {
+        list = [];
+        listName = [];
+    }
     const { pokemon, isLoading } = useFetchImage(category);
-    let [showFavoriteButton, setShowFavoriteButton] = useState(true)
-    console.log(JSON.parse(localStorage.getItem("Favorites")))
-    console.log(JSON.parse(localStorage.getItem("Button")))
-
+    let showFavoriteButtonFlag = true;  
+    if(list.includes(parseInt(category,10)) || listName.includes(category)) {
+        showFavoriteButtonFlag = false;  
+    }
+    let [showFavoriteButton, setShowFavoriteButton] = useState(showFavoriteButtonFlag)     
     const addFavorite = (key, id) => {
-        /*         localStorage.setItem("Favorites", JSON.stringify([]))
-                localStorage.setItem("Button", JSON.stringify({})) */
+        
         let list = JSON.parse(localStorage.getItem("Favorites"));
+        let listName = JSON.parse(localStorage.getItem("FavoritesName"));
         if (list == null) {
             list = [];
+            listName = [];
         }
         if (!list.includes(id)) {
-            //let listButton = JSON.parse(localStorage.getItem("Button"));
+            
             if (list.length == 0) {
                 list = [id]
+                listName = [key];
             } else {
                 list = [id, ...list]
+                listName = [key, ...listName]
             }
-            //listButton[id.toString()] = false;
-            localStorage.setItem("Favorites", JSON.stringify(list));
-            //localStorage.setItem("Button", JSON.stringify(listButton));
+            localStorage.setItem("Favorites", JSON.stringify(list));   
+            localStorage.setItem("FavoritesName", JSON.stringify(listName));   
         }
         showFavorite(id, list);
+        swal({
+            icon: 'warning',
+            title: 'Favorito añadido',
+            text: '¡Pokemon agregado a favoritos!',
+          })
     }
+
 
     const deleteFavorite = (key, id) => {
         let list = JSON.parse(localStorage.getItem("Favorites"));
-        //let listButton = JSON.parse(localStorage.getItem("Button"));
+        let listName = JSON.parse(localStorage.getItem("FavoritesName"));
         const index = list.indexOf(id);
+
         if (index > -1) {
             list.splice(index, 1);
-            //listButton[id.toString()] = true;
+            listName.splice(index, 1);
             localStorage.setItem("Favorites", JSON.stringify(list));
-            //localStorage.setItem("Button", JSON.stringify(listButton));
+            localStorage.setItem("FavoritesName", JSON.stringify(listName));
             showFavorite(id, list);
         }
+        swal({
+            icon: 'error',
+            title: 'Favorito eliminado',
+            text: '¡Pokemon eliminado de favoritos!',
+        })
     }
+
 
     const showFavorite = (id, list) => {
         for (let i = 0; i < list.length; i++) {
@@ -58,15 +78,21 @@ export const ShowPokemon = ({ category, isShowingFav }) => {
         return;
     }
 
+
     return (
         <>
 
             {
-                isShowingFav &&
-                <div className="card">
-                    <h4>No tienes favoritos!</h4>,
-                    <img src={image} width="350" height="200" />
-                </div>
+                isShowingFav && noFavorites &&(
+                    <div className="card-grid">
+                        {
+                            <div className="card">
+                                <h4>No tienes favoritos!</h4>
+                                <img src={image2} width="280" height="220" />
+                            </div>
+                        }
+                    </div>
+                )
 
             }
             {
@@ -74,7 +100,7 @@ export const ShowPokemon = ({ category, isShowingFav }) => {
                     <div className="card-grid">
                         {
                             <div className="card">
-                                <h4>Pokemon no encontrado</h4>,
+                                <h4>Pokemon no encontrado</h4>
                                 <img src={image} width="350" height="200" />
                             </div>
                         }
@@ -83,7 +109,7 @@ export const ShowPokemon = ({ category, isShowingFav }) => {
             }
 
             {
-                !isLoading && (
+                !isLoading && !noFavorites && (
 
                     <div className="card-grid">
 
@@ -107,21 +133,18 @@ export const ShowPokemon = ({ category, isShowingFav }) => {
                                 {localStorage.localStorageState}
                                 {showFavoriteButton && <button
                                     type="button"
-                                    className="btn btn-warning"
+                                    className="btn btn-warning mb-2"
                                     onClick={() => addFavorite(pokemon.name, pokemon.id)}>Añadir Favorito</button>}
                                 {!showFavoriteButton && <button
                                     type="button"
-                                    className="btn btn-danger"
+                                    className="btn btn-danger mb-2"
                                     onClick={() => deleteFavorite(pokemon.name, pokemon.id)}>Eliminar Favorito</button>}
 
-
                             </div>
-
 
                         }
 
                     </div>
-
                 )
             }
         </>
